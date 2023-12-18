@@ -178,22 +178,14 @@ public class Model extends Observable {
         int size = b.size();
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                int x1,x2,y1,y2;
-                x1 = Math.max(i - 1, 0);
-                x2 = Math.min(i+1,size-1);
-                y1 = Math.max(j - 1, 0);
-                y2 = Math.min(j+1,size-1);
                 Tile tile = b.tile(i, j);
                 if (tile == null) {
                     return true;
                 }
-                int value = tile.value();
-                Tile t1 = x1 == i ? null : b.tile(x1, j);
-                Tile t2 = x2 == i ? null : b.tile(x2, j);
-                Tile t3 = y1 == j ? null : b.tile(i, y1);
-                Tile t4 = y2 == j ? null : b.tile(i, y2);
-                if ((t1!=null && t1.value() == value) || (t4!=null && t4.value() == value)
-                       || (t2!=null && t2.value() == value) || (t3!=null && t3.value() == value)) {
+                // 只检查当前格子右边和下面的格子，避免重复
+                if ((j < size - 1 && b.tile(i, j + 1) != null && b.tile(i, j + 1).value() == tile.value()) ||
+                        (i < size - 1 && b.tile(i + 1, j) != null && b.tile(i + 1, j).value() == tile.value())) {
+                    // 如果当前格子与相邻格子的值相同，那么存在移动的可能
                     return true;
                 }
             }
