@@ -1,6 +1,7 @@
 package game2048;
 
 import java.util.Formatter;
+import java.util.Iterator;
 import java.util.Observable;
 
 
@@ -138,6 +139,14 @@ public class Model extends Observable {
      * */
     public static boolean emptySpaceExists(Board b) {
         // TODO: Fill in this function.
+        Iterator<Tile> iterator = b.iterator();
+        while (iterator.hasNext()) {
+            Tile next = iterator.next();
+            if (next == null) {
+                return true;
+            }
+        }
+
         return false;
     }
 
@@ -148,6 +157,13 @@ public class Model extends Observable {
      */
     public static boolean maxTileExists(Board b) {
         // TODO: Fill in this function.
+        Iterator<Tile> iterator = b.iterator();
+        while (iterator.hasNext()) {
+            Tile next = iterator.next();
+            if (next != null && next.value() == MAX_PIECE ) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -159,6 +175,29 @@ public class Model extends Observable {
      */
     public static boolean atLeastOneMoveExists(Board b) {
         // TODO: Fill in this function.
+        int size = b.size();
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                int x1,x2,y1,y2;
+                x1 = Math.max(i - 1, 0);
+                x2 = Math.min(i+1,size-1);
+                y1 = Math.max(j - 1, 0);
+                y2 = Math.min(j+1,size-1);
+                Tile tile = b.tile(i, j);
+                if (tile == null) {
+                    return true;
+                }
+                int value = tile.value();
+                Tile t1 = x1 == i ? null : b.tile(x1, j);
+                Tile t2 = x2 == i ? null : b.tile(x2, j);
+                Tile t3 = y1 == j ? null : b.tile(i, y1);
+                Tile t4 = y2 == j ? null : b.tile(i, y2);
+                if ((t1!=null && t1.value() == value) || (t4!=null && t4.value() == value)
+                       || (t2!=null && t2.value() == value) || (t3!=null && t3.value() == value)) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
