@@ -1,8 +1,12 @@
 package game2048;
 
+import java.util.ArrayList;
 import java.util.Formatter;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Observable;
+import java.util.Set;
 
 
 /** The state of a game of 2048.
@@ -114,7 +118,41 @@ public class Model extends Observable {
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
-
+        board.setViewingPerspective(side);
+        for (int col = 0; col < board.size(); col++) {
+            Set<Integer> mergedRow = new HashSet<>();
+            for (int row = board.size() - 2; row >= 0; row--) {
+                Tile current = board.tile(col, row);
+                if (current != null) {
+                    int targetRow = row;
+                    while (targetRow < board.size() - 1) {
+                        int waitMergeRow = targetRow + 1;
+                        Tile targetTile = board.tile(col, waitMergeRow);
+                        if (targetTile == null) {
+                            // 如果空间为空，则向上移动瓷砖
+                            targetRow++;
+                        } else if (!mergedRow.contains(waitMergeRow) && targetTile.value() == current.value()) {
+                            // 如果瓷砖有相同的值，并且本轮没有合并过，并且不是上一次合并的位置，则合并瓷砖
+                            board.move(col, waitMergeRow, current);
+                            current = null;
+                            mergedRow.add(waitMergeRow);
+                            score += targetTile.value() * 2;
+                            changed = true;
+                            break; // 停止移动这个瓷砖
+                        } else {
+                            // 如果下一个瓷砖不为空且不可合并，则停止
+                            break;
+                        }
+                    }
+                    if (targetRow != row && current!= null) {
+                        // 如果瓷砖已经移动，则更新棋盘
+                        board.move(col, targetRow, current);
+                        changed = true;
+                    }
+                }
+            }
+        }
+        board.setViewingPerspective(Side.NORTH);
         checkGameOver();
         if (changed) {
             setChanged();
