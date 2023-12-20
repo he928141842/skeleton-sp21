@@ -112,52 +112,58 @@ public class Model extends Observable {
      *    and the trailing tile does not.
      * */
     public boolean tilt(Side side) {
-        boolean changed;
-        changed = false;
-
-        // TODO: Modify this.board (and perhaps this.score) to account
-        // for the tilt to the Side SIDE. If the board changed, set the
-        // changed local variable to true.
+        boolean changed = false;
         board.setViewingPerspective(side);
+
         for (int col = 0; col < board.size(); col++) {
-            Set<Integer> mergedRow = new HashSet<>();
-            for (int row = board.size() - 2; row >= 0; row--) {
-                Tile current = board.tile(col, row);
-                if (current != null) {
-                    int targetRow = row;
-                    while (targetRow < board.size() - 1) {
-                        int waitMergeRow = targetRow + 1;
-                        Tile targetTile = board.tile(col, waitMergeRow);
-                        if (targetTile == null) {
-                            // 如果空间为空，则向上移动瓷砖
-                            targetRow++;
-                        } else if (!mergedRow.contains(waitMergeRow) && targetTile.value() == current.value()) {
-                            // 如果瓷砖有相同的值，并且本轮没有合并过，并且不是上一次合并的位置，则合并瓷砖
-                            board.move(col, waitMergeRow, current);
-                            current = null;
-                            mergedRow.add(waitMergeRow);
-                            score += targetTile.value() * 2;
-                            changed = true;
-                            break; // 停止移动这个瓷砖
-                        } else {
-                            // 如果下一个瓷砖不为空且不可合并，则停止
-                            break;
-                        }
-                    }
-                    if (targetRow != row && current!= null) {
-                        // 如果瓷砖已经移动，则更新棋盘
-                        board.move(col, targetRow, current);
-                        changed = true;
+            changed |= tiltColumn(col);
+        }
+
+        board.setViewingPerspective(Side.NORTH);
+        if (changed) {
+            checkGameOver();
+            setChanged();
+        }
+
+        return changed;
+    }
+
+    private boolean tiltColumn(int col) {
+        boolean changed = false;
+        boolean[] merged = new boolean[board.size()];
+
+        for (int row = board.size() - 2; row >= 0; row--) {
+            Tile currentTile = board.tile(col, row);
+            if (currentTile != null) {
+                int newRow = findTargetRow(col, row, merged);
+                if (newRow != row) {
+                    board.move(col, newRow, currentTile);
+                    changed = true;
+                    if (board.tile(col, newRow).value() == currentTile.value() * 2) {
+                        // 发生了合并
+                        merged[newRow] = true;
+                        score += board.tile(col, newRow).value();
                     }
                 }
             }
         }
-        board.setViewingPerspective(Side.NORTH);
-        checkGameOver();
-        if (changed) {
-            setChanged();
-        }
+
         return changed;
+    }
+
+    private int findTargetRow(int col, int row, boolean[] merged) {
+        int targetRow = row;
+        while (targetRow < board.size() - 1) {
+            Tile nextTile = board.tile(col, targetRow + 1);
+            if (nextTile == null) {
+                targetRow++; // 如果空间为空，则向上移动
+            } else if (!merged[targetRow + 1] && nextTile.value() == board.tile(col, row).value()) {
+                return targetRow + 1; // 如果下一个瓷砖有相同的值且未合并，则合并
+            } else {
+                break; // 如果下一个瓷砖不为空且不能合并，则停止
+            }
+        }
+        return targetRow;
     }
 
     /** Checks if the game is over and sets the gameOver variable
