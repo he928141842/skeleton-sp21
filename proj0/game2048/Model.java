@@ -130,40 +130,37 @@ public class Model extends Observable {
 
     private boolean tiltColumn(int col) {
         boolean changed = false;
-        boolean[] merged = new boolean[board.size()];
-
+        boolean[] hasMerged = new boolean[board.size()];
         for (int row = board.size() - 2; row >= 0; row--) {
-            Tile currentTile = board.tile(col, row);
-            if (currentTile != null) {
-                int newRow = findTargetRow(col, row, merged);
-                if (newRow != row) {
-                    board.move(col, newRow, currentTile);
-                    changed = true;
-                    if (board.tile(col, newRow).value() == currentTile.value() * 2) {
-                        // 发生了合并
-                        merged[newRow] = true;
-                        score += board.tile(col, newRow).value();
+            Tile current = board.tile(col, row);
+            if (current != null) {
+                int newRow = row;
+                while (newRow < board.size() - 1) {
+                    Tile next = board.tile(col, newRow + 1);
+                    if (next == null) {
+                        // 空位，可以移动
+                        newRow++;
+                    } else if (next.value() == current.value() && !hasMerged[newRow + 1]) {
+                        // 相同值，可以合并，且未合并过
+                        board.move(col, newRow + 1, current);
+                        hasMerged[newRow + 1] = true;
+                        score += next.value() * 2;
+                        changed = true;
+                        current = null; // 合并后将current设置为null，防止再次移动
+                        break;
+                    } else {
+                        // 不能合并，或者已经合并过
+                        break;
                     }
+                }
+                if (current != null && newRow != row) {
+                    // 如果current非null且有新位置，则移动到新位置
+                    board.move(col, newRow, current);
+                    changed = true;
                 }
             }
         }
-
         return changed;
-    }
-
-    private int findTargetRow(int col, int row, boolean[] merged) {
-        int targetRow = row;
-        while (targetRow < board.size() - 1) {
-            Tile nextTile = board.tile(col, targetRow + 1);
-            if (nextTile == null) {
-                targetRow++; // 如果空间为空，则向上移动
-            } else if (!merged[targetRow + 1] && nextTile.value() == board.tile(col, row).value()) {
-                return targetRow + 1; // 如果下一个瓷砖有相同的值且未合并，则合并
-            } else {
-                break; // 如果下一个瓷砖不为空且不能合并，则停止
-            }
-        }
-        return targetRow;
     }
 
     /** Checks if the game is over and sets the gameOver variable
