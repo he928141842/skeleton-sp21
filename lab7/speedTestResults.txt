@@ -1,0 +1,98 @@
+D:\Java\java11\bin\java.exe "-javaagent:D:\IntelliJ IDEA 2022.2.3\lib\idea_rt.jar=9512:D:\IntelliJ IDEA 2022.2.3\bin" -Dfile.encoding=UTF-8 -classpath F:\code\skeleton-sp21\library-sp21;F:\code\skeleton-sp21\library-sp21\javalib\algs4.jar;F:\code\skeleton-sp21\library-sp21\javalib\hamcrest-core-1.3.jar;F:\code\skeleton-sp21\library-sp21\javalib\jh61b.jar;F:\code\skeleton-sp21\library-sp21\javalib\junit-4.12.jar;F:\code\skeleton-sp21\library-sp21\javalib\stdlib-package.jar;F:\code\skeleton-sp21\library-sp21\javalib\ucb.jar;F:\code\skeleton-sp21\library-sp21\javalib\stdlib.jar;F:\code\skeleton-sp21\library-sp21\javalib\xchart-3.5.1.jar;F:\code\sp_21_hjy\skeleton-sp21\lab7\resource\production\lab7 bstmap.InsertRandomSpeedTest
+This program inserts random Strings of length L into different types of maps as <String, Integer> pairs.
+Please enter desired length of each string: 10
+
+Enter # strings to insert into the maps: 1000
+class bstmap.ULLMap: 0.01 sec
+class bstmap.BSTMap: 0.00 sec
+Java's Built-in TreeMap: 0.00 sec
+Java's Built-in HashMap: 0.00 sec
+Would you like to try more timed-tests? (y/n)y
+
+Enter # strings to insert into the maps: 5000
+class bstmap.ULLMap: 0.04 sec
+class bstmap.BSTMap: 0.00 sec
+Java's Built-in TreeMap: 0.00 sec
+Java's Built-in HashMap: 0.00 sec
+Would you like to try more timed-tests? (y/n)y
+
+Enter # strings to insert into the maps: 10000
+class bstmap.ULLMap: 0.16 sec
+class bstmap.BSTMap: 0.00 sec
+Java's Built-in TreeMap: 0.00 sec
+Java's Built-in HashMap: 0.00 sec
+Would you like to try more timed-tests? (y/n)y
+
+Enter # strings to insert into the maps: 20000
+class bstmap.ULLMap: 0.63 sec
+class bstmap.BSTMap: 0.00 sec
+Java's Built-in TreeMap: 0.01 sec
+Java's Built-in HashMap: 0.01 sec
+Would you like to try more timed-tests? (y/n)y
+
+Enter # strings to insert into the maps: 25000
+class bstmap.ULLMap: 0.98 sec
+class bstmap.BSTMap: 0.00 sec
+Java's Built-in TreeMap: 0.01 sec
+Java's Built-in HashMap: 0.01 sec
+Would you like to try more timed-tests? (y/n)y
+
+Enter # strings to insert into the maps: 30000
+class bstmap.ULLMap: 1.42 sec
+class bstmap.BSTMap: 0.00 sec
+Java's Built-in TreeMap: 0.01 sec
+Java's Built-in HashMap: 0.01 sec
+Would you like to try more timed-tests? (y/n)y
+
+Enter # strings to insert into the maps: 50000
+--Stack Overflow -- couldn't add 50000 strings of length 10.
+class bstmap.BSTMap: 0.01 sec
+Java's Built-in TreeMap: 0.02 sec
+Java's Built-in HashMap: 0.01 sec
+Would you like to try more timed-tests? (y/n)
+
+----------orderSpeedTest
+D:\Java\java11\bin\java.exe "-javaagent:D:\IntelliJ IDEA 2022.2.3\lib\idea_rt.jar=9623:D:\IntelliJ IDEA 2022.2.3\bin" -Dfile.encoding=UTF-8 -classpath F:\code\skeleton-sp21\library-sp21;F:\code\skeleton-sp21\library-sp21\javalib\algs4.jar;F:\code\skeleton-sp21\library-sp21\javalib\hamcrest-core-1.3.jar;F:\code\skeleton-sp21\library-sp21\javalib\jh61b.jar;F:\code\skeleton-sp21\library-sp21\javalib\junit-4.12.jar;F:\code\skeleton-sp21\library-sp21\javalib\stdlib-package.jar;F:\code\skeleton-sp21\library-sp21\javalib\ucb.jar;F:\code\skeleton-sp21\library-sp21\javalib\stdlib.jar;F:\code\skeleton-sp21\library-sp21\javalib\xchart-3.5.1.jar;F:\code\sp_21_hjy\skeleton-sp21\lab7\resource\production\lab7 bstmap.InsertInOrderSpeedTest
+This program inserts lexicographically increasing Strings into Maps as <String, Integer> pairs.
+
+Enter # strings to insert into the maps: 1000
+class bstmap.ULLMap: 0.01 sec
+class bstmap.BSTMap: 0.00 sec
+Java's Built-in TreeMap: 0.00 sec
+Java's Built-in HashMap: 0.00 sec
+Would you like to try more timed-tests? (y/n): y
+
+Enter # strings to insert into the maps: 10000
+class bstmap.ULLMap: 0.25 sec
+class bstmap.BSTMap: 0.01 sec
+Java's Built-in TreeMap: 0.01 sec
+Java's Built-in HashMap: 0.01 sec
+Would you like to try more timed-tests? (y/n): 15000
+
+Enter # strings to insert into the maps: 15000
+class bstmap.ULLMap: 0.53 sec
+class bstmap.BSTMap: 0.01 sec
+Java's Built-in TreeMap: 0.01 sec
+Java's Built-in HashMap: 0.01 sec
+Would you like to try more timed-tests? (y/n): y
+
+Enter # strings to insert into the maps: 20000
+class bstmap.ULLMap: 0.96 sec
+class bstmap.BSTMap: 0.02 sec
+Java's Built-in TreeMap: 0.02 sec
+Java's Built-in HashMap: 0.01 sec
+Would you like to try more timed-tests? (y/n): y
+
+Enter # strings to insert into the maps: 30000
+class bstmap.ULLMap: 2.14 sec
+class bstmap.BSTMap: 0.01 sec
+Java's Built-in TreeMap: 0.01 sec
+Java's Built-in HashMap: 0.01 sec
+Would you like to try more timed-tests? (y/n): y
+
+Enter # strings to insert into the maps: 40000
+--Stack Overflow -- couldn't add 40000 strings.
+class bstmap.BSTMap: 0.01 sec
+Java's Built-in TreeMap: 0.01 sec
+Java's Built-in HashMap: 0.01 sec
+Would you like to try more timed-tests? (y/n):

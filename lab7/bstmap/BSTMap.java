@@ -10,7 +10,7 @@ import java.util.spi.ToolProvider;
  * @author hejiayuan
  * @create 2024-03-07-21:46
  */
-public class BSTMap<K extends Comparable, V> implements Map61B<K,V> {
+public class BSTMap<K extends Comparable<K>, V> implements Map61B<K,V> {
 
     private Entry root;
 
@@ -52,7 +52,10 @@ public class BSTMap<K extends Comparable, V> implements Map61B<K,V> {
 
     @Override
     public boolean containsKey(K key) {
-        return get(key) != null;
+        if (root == null) {
+            return false;
+        }
+        return root.get(key) != null;
     }
 
     @Override
@@ -97,7 +100,8 @@ public class BSTMap<K extends Comparable, V> implements Map61B<K,V> {
 
     @Override
     public Iterator<K> iterator() {
-        throw new UnsupportedOperationException();    }
+        throw new UnsupportedOperationException();
+    }
 
 
 
