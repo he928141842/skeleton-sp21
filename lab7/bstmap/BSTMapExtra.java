@@ -1,8 +1,5 @@
 package bstmap;
 
-
-import org.w3c.dom.Node;
-
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
