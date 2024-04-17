@@ -16,19 +16,19 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K,V> {
 
     private int size;
 
-    public static void main(String[] args) {
-        BSTMap<String, Integer> map = new BSTMap<>();
-        map.put("1",1);
-        map.put("2",2);
-        map.put("3",3);
-
-    }
+    //public static void main(String[] args) {
+    //    BSTMap<String, Integer> map = new BSTMap<>();
+    //    map.put("1",1);
+    //    map.put("2",2);
+    //    map.put("3",3);
+    //
+    //}
 
     public void printInOrder() {
         printInOrderRecursive(root);
     }
 
-    public void printInOrderRecursive(Entry entry) {
+    private void printInOrderRecursive(Entry entry) {
         if (entry == null) {
             return;
         }
