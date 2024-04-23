@@ -48,6 +48,8 @@ created for the tests (with names TEST.dir).
 When finished, reports number of tests passed and failed, and the number of
 faulty TEST.in files."""
 
+environ['REPO_DIR'] = 'D:\\code2\\hjy_spring21\\skeleton-sp21'
+
 DIRECTORY_LAYOUT_ERROR = """\
 Your {} folder is not where we expected it. Please ensure that your directory
 structure matches the following:
